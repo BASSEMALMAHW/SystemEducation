@@ -10,7 +10,6 @@ public class CourseTest {
 	public CourseConsoleUI m_CourseConsoleUI;
 
 	public CourseTest(){
-
 	}
 
 	public void finalize() throws Throwable {
