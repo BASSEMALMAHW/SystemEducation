@@ -5,7 +5,7 @@ package SystemEducation;
  * @version 1.0
  * @created 10-����������-2011 08:03:17 �
  */
-public class Student extends Personaal {
+public class Student extends Person {
 
 //Data Member
         private int ID;
