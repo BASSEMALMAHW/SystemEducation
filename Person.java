@@ -44,6 +44,46 @@ public class Person {
         return National_Security_Number;
     }
 
+//Copy Constructor
+public Personaal Deep_Copy (Object obj){
+        Personaal person = (Personaal)obj;
+        this.First_Name = person.First_Name;
+        this.Last_Name =person.Last_Name;
+        this.National_Security_Number = person.National_Security_Number;
+
+        return new Personaal(this.First_Name, this.Last_Name, this.National_Security_Number);
+    }
+//comparable
+    public int compareTo(Object o) {
+                // throw new UnsupportedOperationException("Not supported yet.");
+        if (o instanceof Personaal)
+        {
+            Personaal person = (Personaal)o;
+            if (this.First_Name.equals(person.First_Name))
+            {
+                  if (this.Last_Name.equals(person.Last_Name))
+                  {
+                       if (this.National_Security_Number == person.National_Security_Number)
+                           return 0;
+                       else
+                           return -1;
+                  }
+                  else
+                       return -1;
+            }
+            else
+                return -1;
+        }
+        else
+            return -1;
+
+
+    }
+
+    @Override
+    public String toString() {
+        return String.format("First name :%s   Last name :%s   Natinal Security Number :%i",this.First_Name,this.Last_Name,this.National_Security_Number);
+    }
 
 
 	public void finalize() throws Throwable {
