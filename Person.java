@@ -5,7 +5,7 @@ package SystemEducation;
  * @version 1.0
  * @created 10-����������-2011 08:03:15 �
  */
-public class Person {
+public class Person  implements Comparable,Cloneable{
 //DataMember
     private String First_Name;
     private String Last_Name;
@@ -45,13 +45,10 @@ public class Person {
     }
 
 //Copy Constructor
-public Person Deep_Copy (Object obj){
-        Person person = (Person)obj;
-        this.First_Name = person.First_Name;
-        this.Last_Name =person.Last_Name;
-        this.National_Security_Number = person.National_Security_Number;
-
-        return new Personaal(this.First_Name, this.Last_Name, this.National_Security_Number);
+    @Override
+    protected Person clone() throws CloneNotSupportedException {
+        Person person = new Person(this.getFirst_Name(), this.getLast_Name(), this.getNational_Security_Number());
+        return person;
     }
 //comparable
     public int compareTo(Object o) {
