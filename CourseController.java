@@ -1,6 +1,7 @@
 package SystemEducation;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * @author bassem
@@ -14,32 +15,74 @@ public class CourseController {
         LinkedList<Course> Courses;   
         LinkedList<Semester> Semesters;   
         LinkedList<Enrollement> Enrollements;           
-    
-        public boolean add (Object object) {
-            
-            if (object instanceof Student)
-                Students.add((Student)object);
-            
-            else if (object instanceof AcademicStaff)
-                AcademicStaffs.add((AcademicStaff)object);
-            
-            else if (object instanceof Supervisor)
-                Supervisors.add((Supervisor)object);
-            
-            else if (object instanceof Course)
-                Courses.add((Course)object);
-            
-            else if (object instanceof Semester)
-                Semesters.add((Semester)object);
-            
-            else if (object instanceof Enrollement)
-                Enrollements.add((Enrollement)object);
-            
-            else 
-                return false;            
         
+        public boolean add (Enrollement enrollement) {
+            return Enrollements.add(enrollement);            
+        }
+        
+        public boolean isRemovable(Enrollement enrollement){
+            if (enrollement.m_Semester.getFinishing_Date() > 0)
+                return true;
+            else 
+                return false;
+        }
+        
+        public boolean add (Student student) {
+            return Students.add(student);            
+        }
+        
+        public boolean isRemovable(Student student){
+            
+            ListIterator<Enrollement> itr = Enrollements.listIterator();
+            
+            while (itr.hasNext()){
+                if (itr.next().m_Student.equals(student)){
+                    return false;
+                }
+                
+            }            
+            
             return true;
         }
+        
+        
+        public boolean add (AcademicStaff academicStaff) {
+            return AcademicStaffs.add(academicStaff);            
+        }
+        
+        public boolean add (Supervisor supervisor) {
+            return Supervisors.add(supervisor);            
+        }
+        
+        public boolean add (Course course) {
+            return Courses.add(course);            
+        }
+        
+        public boolean add (Semester semester) {
+            return Semesters.add(semester);            
+        }        
+         
+        
+        public boolean remove(Enrollement enrollement) {
+            ListIterator<Enrollement> itr = Enrollements.listIterator();
+            Enrollement tmpEnrollment;
+            int index;
+            
+            while (itr.hasNext()){
+                index = itr.nextIndex();
+                tmpEnrollment = Enrollements.get(index);                
+                                
+                if(isRemovable(tmpEnrollment)){
+                    Enrollements.remove(index);
+                    return true;                    
+                }
+            }
+            
+            return false;
+        }
+        
+        
+
 
 	public CourseController(){
 
