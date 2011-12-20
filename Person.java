@@ -45,8 +45,8 @@ public class Person {
     }
 
 //Copy Constructor
-public Personaal Deep_Copy (Object obj){
-        Personaal person = (Personaal)obj;
+public Person Deep_Copy (Object obj){
+        Person person = (Person)obj;
         this.First_Name = person.First_Name;
         this.Last_Name =person.Last_Name;
         this.National_Security_Number = person.National_Security_Number;
@@ -59,11 +59,11 @@ public Personaal Deep_Copy (Object obj){
         if (o instanceof Personaal)
         {
             Personaal person = (Personaal)o;
-            if (this.First_Name.equals(person.First_Name))
+            if (this.getFirst_Name().equals(person.getFirst_Name()))
             {
-                  if (this.Last_Name.equals(person.Last_Name))
+                  if (this.getLast_Name().equals(person.getLast_Name()))
                   {
-                       if (this.National_Security_Number == person.National_Security_Number)
+                       if (this.getNational_Security_Number() == person.getNational_Security_Number())
                            return 0;
                        else
                            return -1;
@@ -82,7 +82,7 @@ public Personaal Deep_Copy (Object obj){
 
     @Override
     public String toString() {
-        return String.format("First name :%s   Last name :%s   Natinal Security Number :%i",this.First_Name,this.Last_Name,this.National_Security_Number);
+        return String.format("First name :%s   Last name :%s   Natinal Security Number :%i",this.getFirst_Name(),this.getLast_Name(),this.getNational_Security_Number());
     }
 
 
