@@ -16,6 +16,8 @@ public class Supervisor {
                 m_AcademicStaff.getNational_Security_Number(), m_AcademicStaff.getAcadimec_Degree(), m_AcademicStaff.getDegree_Year());
         this.m_Courses = new Course(m_Courses.getCourse_Name());
         this.m_Semester = new Semester(m_Semester.getDistinguishing_Number(), m_Semester.getPresent_Year(), m_Semester.getFinishing_Date());
+        
+        this.m_AcademicStaff.supervisors.add(this);
     }
 
     public void finalize() throws Throwable {

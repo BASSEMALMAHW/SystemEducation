@@ -1,5 +1,7 @@
 package SystemEducation;
 
+import java.util.LinkedList;
+
 
 /**
  * @author bassem
@@ -11,6 +13,7 @@ public class AcademicStaff extends Person {
 //Data Method
         private AcademicDegree Academic_Degree;
         private int Degree_Year;
+        LinkedList<Supervisor> supervisors;   
         
 //Costructor
     public AcademicStaff(String First_Name, String Last_Name, String National_Security_Number, AcademicDegree Academic_Degree, int Degree_Year) {

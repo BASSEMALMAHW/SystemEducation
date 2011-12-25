@@ -1,5 +1,7 @@
 package SystemEducation;
 
+import java.util.LinkedList;
+
 /**
  * @author bassem
  * @version 1.0
@@ -10,6 +12,7 @@ public class Student extends Person {
 //Data Member
         private int ID;
         private static int I_D;
+        LinkedList<Enrollement> enrollments;   
 
 //Constructor
 	public Student(String First_Name, String Last_Name, String National_Security_Number){

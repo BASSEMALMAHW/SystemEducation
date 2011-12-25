@@ -9,15 +9,19 @@ import java.util.ListIterator;
  * @created 10-����������-2011 08:03:11 �
  */
 public class CourseController {
-        LinkedList<Student> Students;
-        LinkedList<AcademicStaff> AcademicStaffs;    
-        LinkedList<Supervisor> Supervisors;   
-        LinkedList<Course> Courses;   
-        LinkedList<Semester> Semesters;   
-        LinkedList<Enrollement> Enrollements;           
+        LinkedList<Student> students;
+        LinkedList<AcademicStaff> academics;    
+        LinkedList<Supervisor> supervisors;   
+        LinkedList<Course> courses;   
+        LinkedList<Semester> semesters;   
+        LinkedList<Enrollement> enrollments;   
+        
+        Semester currentSemester;
+        
+        
         
         public boolean add (Enrollement enrollement) {
-            return Enrollements.add(enrollement);            
+            return enrollments.add(enrollement);            
         }
         
         public boolean isRemovable(Enrollement enrollement){
@@ -27,16 +31,34 @@ public class CourseController {
                 return false;
         }
         
-        public boolean add (Student student) {
-            return Students.add(student);            
+        public boolean remove(Enrollement enrollement) {
+            ListIterator<Enrollement> itr = enrollments.listIterator();
+            Enrollement tmpEnrollment;
+            int index;
+            
+            while (itr.hasNext()){
+                index = itr.nextIndex();
+                tmpEnrollment = enrollments.get(index);                
+                                
+                if(isRemovable(tmpEnrollment)){
+                    enrollments.remove(index);
+                    return true;                    
+                }
+            }
+            
+            return false;
+        }     
+        
+        public boolean addStudent (Student student) {
+            return students.add(student);            
         }
         
         public boolean isRemovable(Student student){
             
-            ListIterator<Enrollement> itr = Enrollements.listIterator();
+            ListIterator<Enrollement> itr = student.enrollments.listIterator();
             
-            while (itr.hasNext()){
-                if (itr.next().m_Student.equals(student)){
+            if (itr.hasNext()){
+                if (itr.next().isMarkSet()){
                     return false;
                 }
                 
@@ -45,43 +67,86 @@ public class CourseController {
             return true;
         }
         
-        
-        public boolean add (AcademicStaff academicStaff) {
-            return AcademicStaffs.add(academicStaff);            
-        }
-        
-        public boolean add (Supervisor supervisor) {
-            return Supervisors.add(supervisor);            
-        }
-        
-        public boolean add (Course course) {
-            return Courses.add(course);            
-        }
-        
-        public boolean add (Semester semester) {
-            return Semesters.add(semester);            
-        }        
-         
-        
-        public boolean remove(Enrollement enrollement) {
-            ListIterator<Enrollement> itr = Enrollements.listIterator();
-            Enrollement tmpEnrollment;
+        public boolean remove(Student student){
+            ListIterator<Student> itr = students.listIterator();
+            Student tmpStudent;
             int index;
             
-            while (itr.hasNext()){
+            if(itr.hasNext()) {
                 index = itr.nextIndex();
-                tmpEnrollment = Enrollements.get(index);                
-                                
-                if(isRemovable(tmpEnrollment)){
-                    Enrollements.remove(index);
-                    return true;                    
-                }
+                tmpStudent = itr.next();
+                if (tmpStudent.equals(student))
+                    if(isRemovable(student)){
+                        students.remove(index);                        
+                        return true;                        
+                    }
             }
             
             return false;
+            
+        }        
+        
+        public boolean addAcademic (AcademicStaff academicStaff) {
+            return academics.add(academicStaff);            
         }
         
+        public boolean isRemovable(AcademicStaff academic){
+            
+            if (academic.supervisors.size() > 0)
+                return false;
+            else
+                return true;
+            
+        }
         
+        public int getIndex(AcademicStaff academic){
+            
+            ListIterator<AcademicStaff> itr = academics.listIterator();
+            AcademicStaff tmpAcademic;
+            int index;
+            
+            if(itr.hasNext()) {
+                index = itr.nextIndex();
+                tmpAcademic = itr.next();
+                if (tmpAcademic.equals(academic))
+                    return index;                        
+                    
+            }
+            
+            return -1;
+        
+        }
+        
+        public boolean removeAcademic(AcademicStaff academic){
+            
+            int index = getIndex(academic);
+            
+            if (index > 0){
+                if(isRemovable(academic)){
+                    academics.remove(index);                        
+                    return true;                        
+                }
+            }
+            
+            
+            return false;
+        
+        }
+        
+        public boolean add (Supervisor supervisor) {
+            return supervisors.add(supervisor);            
+        }
+        
+        public boolean addCourse (Course course) {
+            return courses.add(course);            
+        }
+        
+        public boolean addSemester (Semester semester) {
+            return semesters.add(semester);            
+        }        
+         
+        
+   
 
 
 	public CourseController(){
