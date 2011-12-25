@@ -25,23 +25,49 @@ public class CourseController {
         }
         
         public boolean isRemovable(Enrollement enrollement){
-            if (enrollement.m_Semester.getFinishing_Date() > 0)
+            if (enrollement.m_Semester.getFinishing_Date() > 0 && enrollement.m_Semester.getPresent_Year() == currentSemester.getPresent_Year())
                 return true;
             else 
                 return false;
         }
-        
-        public boolean remove(Enrollement enrollement) {
+                
+        public int getIndex(Enrollement  enrollment){
+            
             ListIterator<Enrollement> itr = enrollments.listIterator();
-            Enrollement tmpEnrollment;
+            Enrollement tmpEnrollement;
             int index;
             
-            while (itr.hasNext()){
+            if(itr.hasNext()) {
                 index = itr.nextIndex();
-                tmpEnrollment = enrollments.get(index);                
-                                
-                if(isRemovable(tmpEnrollment)){
-                    enrollments.remove(index);
+                tmpEnrollement = itr.next();
+                if (tmpEnrollement.equals(enrollment))
+                    return index;                        
+                    
+            }
+            
+            return -1;
+        
+        }
+        
+        public boolean removeMark(Enrollement enrollement) {
+            int index = getIndex(enrollement);
+            
+            if (index > 0){
+                if(isRemovable(enrollement)){
+                    enrollement.setMarkSet(false);
+                    return true;                    
+                }
+            }
+            
+            return false;
+        }
+        
+        public boolean modifyMark(Enrollement enrollement, int newMark) {
+            int index = getIndex(enrollement);
+            
+            if (index > 0){
+                if(isRemovable(enrollement)){
+                    enrollement.setMark(newMark);
                     return true;                    
                 }
             }
@@ -67,7 +93,8 @@ public class CourseController {
             return true;
         }
         
-        public boolean remove(Student student){
+        public int getIndex(Student student){
+            
             ListIterator<Student> itr = students.listIterator();
             Student tmpStudent;
             int index;
@@ -76,14 +103,26 @@ public class CourseController {
                 index = itr.nextIndex();
                 tmpStudent = itr.next();
                 if (tmpStudent.equals(student))
-                    if(isRemovable(student)){
-                        students.remove(index);                        
-                        return true;                        
-                    }
+                    return index;                        
+                    
             }
             
-            return false;
+            return -1;
+        
+        }
+        
+        public boolean remove(Student student){
+                        
+            int index = getIndex(student);
             
+            if (index > 0){
+                if(isRemovable(student)){
+                    students.remove(index);                        
+                    return true;                        
+                }
+            }
+            
+            return false;            
         }        
         
         public boolean addAcademic (AcademicStaff academicStaff) {
@@ -137,17 +176,57 @@ public class CourseController {
             return supervisors.add(supervisor);            
         }
         
+        public boolean isRemovable(Supervisor supervisor){
+            
+            if(supervisor.m_Semester.getPresent_Year() != currentSemester.getPresent_Year())
+                return false;
+            
+            if (supervisor.m_Courses.enrollments.size() > 0)
+                return false;
+            
+            return true;
+            
+        }
+        
+        public int getIndex(Supervisor supervisor){
+            
+            ListIterator<Supervisor> itr = supervisors.listIterator();
+            Supervisor tmpSupervisor;
+            int index;
+            
+            if(itr.hasNext()) {
+                index = itr.nextIndex();
+                tmpSupervisor = itr.next();
+                if (tmpSupervisor.equals(supervisor))
+                    return index;                        
+                    
+            }
+            
+            return -1;
+        
+        }
+        
+        public boolean remove(Supervisor supervisor){
+                        
+            int index = getIndex(supervisor);
+            
+            if (index > 0){
+                if(isRemovable(supervisor)){
+                    supervisors.remove(index);                        
+                    return true;                        
+                }
+            }
+            
+            return false;            
+        }      
+        
         public boolean addCourse (Course course) {
             return courses.add(course);            
         }
         
         public boolean addSemester (Semester semester) {
             return semesters.add(semester);            
-        }        
-         
-        
-   
-
+        }
 
 	public CourseController(){
 

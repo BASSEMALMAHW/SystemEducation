@@ -21,6 +21,7 @@ public class Enrollement {
         this.m_Semester = new Semester(m_Semester.getDistinguishing_Number(),m_Semester.getPresent_Year(),m_Semester.getFinishing_Date());
         
         m_Student.enrollments.add(this);
+        m_Courses.enrollments.add(this);
         
         setMark(Mark);        
     }

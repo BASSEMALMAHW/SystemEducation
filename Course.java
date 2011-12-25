@@ -1,5 +1,7 @@
 package SystemEducation;
 
+import java.util.LinkedList;
+
 /**
  * @author bassem
  * @version 1.0
@@ -11,6 +13,8 @@ public class Course {
         private String Course_Name;
         private int course_ID;
         private static  int coourse_I_D;
+        LinkedList<Enrollement> enrollments;   
+
 
 //Constructor
     public Course(String Course_Name) {
