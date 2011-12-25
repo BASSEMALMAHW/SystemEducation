@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @version 1.0
  * @created 10-����������-2011 08:03:09 �
  */
-public class AcademicStaff extends Person implements Comparable <AcademicStaff> {
+public class AcademicStaff extends Person implements Comparable {
 
 //Data Method
         private AcademicDegree Academic_Degree;
