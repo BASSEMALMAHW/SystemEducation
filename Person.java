@@ -53,9 +53,9 @@ public class Person  implements Comparable,Cloneable{
 //comparable
     public int compareTo(Object o) {
                 // throw new UnsupportedOperationException("Not supported yet.");
-        if (o instanceof Personaal)
+        if (o instanceof Person)
         {
-            Personaal person = (Personaal)o;
+            Person person = (Person)o;
             if (this.getFirst_Name().equals(person.getFirst_Name()))
             {
                   if (this.getLast_Name().equals(person.getLast_Name()))
