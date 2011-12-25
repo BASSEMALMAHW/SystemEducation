@@ -8,6 +8,7 @@ package SystemEducation;
  *
  * @author amjad
  */
-public enum AcademicDegree {
-    BACHELOR, MASTER, PHD    
+public enum AcademicDegree implements Comparable<SystemEducation.AcademicDegree> {
+    BACHELOR, MASTER, PHD       
+    
 }

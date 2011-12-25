@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * @version 1.0
  * @created 10-����������-2011 08:03:17 �
  */
-public class Student extends Person {
+public class Student extends Person implements Comparable {
 
 //Data Member
         private int ID;
@@ -24,5 +24,22 @@ public class Student extends Person {
 	public void finalize() throws Throwable {
 		super.finalize();
 	}
+        
+        //comparable
+    @Override
+    public int compareTo(Object t) {
+        
+            Student student = (Student) t;
 
-}
+            if(this.ID > student.ID)
+                return 1;
+            else if (this.ID < student.ID) 
+                return -1;
+            else 
+                return super.compareTo((Person)student);
+            }
+
+    }
+    
+
+    

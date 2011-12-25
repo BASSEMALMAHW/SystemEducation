@@ -5,7 +5,7 @@ package SystemEducation;
  * @version 1.0
  * @created 10-����������-2011 08:03:14 �
  */
-public class Enrollement {
+public class Enrollement implements Comparable<Enrollement> {
 //Data mathod
 	public Student m_Student;
 	public Course m_Courses;
@@ -63,6 +63,21 @@ public class Enrollement {
      */
     public void setMarkSet(boolean markSet) {
         this.markSet = markSet;
+        if(!markSet)
+            Mark = 0;
     }
+
+    @Override
+    public int compareTo(Enrollement enrollment) {
+
+        if(this.getMark() > enrollment.getMark())
+            return 1;
+        else if (this.getMark() < enrollment.getMark()) 
+            return -1;
+        else 
+            return this.m_Student.compareTo(enrollment.m_Student);
+    }
+        
+
 
 }

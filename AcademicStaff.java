@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @version 1.0
  * @created 10-����������-2011 08:03:09 �
  */
-public class AcademicStaff extends Person {
+public class AcademicStaff extends Person implements Comparable <AcademicStaff> {
 
 //Data Method
         private AcademicDegree Academic_Degree;
@@ -41,8 +41,19 @@ public class AcademicStaff extends Person {
 
 
 
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
+    public void finalize() throws Throwable {
+            super.finalize();
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        AcademicStaff academic = (AcademicStaff) t;
+        int degreeCompare = this.Academic_Degree.compareTo(academic.Academic_Degree);
+        
+        if(degreeCompare != 0)
+            return degreeCompare;
+        else
+            return super.compareTo((Person)academic);       
+    }
 
 }

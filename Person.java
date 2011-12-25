@@ -5,7 +5,7 @@ package SystemEducation;
  * @version 1.0
  * @created 10-����������-2011 08:03:15 �
  */
-public class Person  implements Comparable,Cloneable{
+public class Person  implements Comparable, Cloneable{
 //DataMember
     private String First_Name;
     private String Last_Name;
@@ -50,32 +50,6 @@ public class Person  implements Comparable,Cloneable{
         Person person = new Person(this.getFirst_Name(), this.getLast_Name(), this.getNational_Security_Number());
         return person;
     }
-//comparable
-    public int compareTo(Object o) {
-                // throw new UnsupportedOperationException("Not supported yet.");
-        if (o instanceof Person)
-        {
-            Person person = (Person)o;
-            if (this.getFirst_Name().equals(person.getFirst_Name()))
-            {
-                  if (this.getLast_Name().equals(person.getLast_Name()))
-                  {
-                       if (this.getNational_Security_Number() == person.getNational_Security_Number())
-                           return 0;
-                       else
-                           return -1;
-                  }
-                  else
-                       return -1;
-            }
-            else
-                return -1;
-        }
-        else
-            return -1;
-
-
-    }
 
     @Override
     public String toString() {
@@ -86,5 +60,21 @@ public class Person  implements Comparable,Cloneable{
 	public void finalize() throws Throwable {
 
 	}
+
+    @Override
+    public int compareTo(Object t) {   
+        
+        Person person = (Person) t;        
+
+        int firstNameCompare = this.getFirst_Name().compareTo(person.getFirst_Name());
+
+        if(firstNameCompare != 0)
+            return firstNameCompare;
+        else {
+            int lastNameCompare = this.getLast_Name().compareTo(person.getLast_Name());
+            return lastNameCompare;                
+        }
+
+    }
 
 }
