@@ -29,8 +29,10 @@ public class Enrollement implements Comparable<Enrollement> {
 
 //Method Set
         public void setMark(int Mark) {
-            setMarkSet(true);
-            this.Mark = Mark;
+            if(Mark >= 0 && Mark <= 100){
+                setMarkSet(true);
+                this.Mark = Mark;            
+            }   
         }
         
 

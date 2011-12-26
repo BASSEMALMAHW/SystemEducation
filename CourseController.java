@@ -279,8 +279,30 @@ public class CourseController {
             }                            
         }
         
-
-
+        public double studentStatistics(Student student, Semester semester){
+            int sum = 0, n = 0;
+            for (Enrollement enrollment : student.enrollments){                
+                if(enrollment.m_Semester.equals(semester)){
+                    sum += enrollment.getMark();
+                    n ++;
+                }           
+            }            
+            return sum/n;
+        }
+        
+        public void studentStatistics(Semester semester){
+            LinkedList<Student> semesterStudents = null;
+            for (Enrollement enrollment : enrollments){
+                if (enrollment.m_Semester.equals(semester)){
+                    if(semesterStudents.indexOf(enrollment.m_Student) < 0)
+                        semesterStudents.add(enrollment.m_Student);
+                }    
+            }
+            
+            for (Student student : semesterStudents){
+                studentStatistics(student, semester);            
+            }                   
+        }
 
 	public CourseController(){
 
