@@ -227,6 +227,45 @@ public class CourseController {
         public boolean addSemester (Semester semester) {
             return semesters.add(semester);            
         }
+        
+        public void courseStatistics(Course course) {
+            ListIterator<Enrollement> itr = course.enrollments.listIterator();
+            
+            int suc = 0, fail = 0;
+            if(itr.hasNext()) {
+                if(itr.next().getMark() > 60)
+                    suc++;
+                else
+                    fail++;
+                  
+                    
+            }
+        }
+        
+        public void courseStatistics(Semester semester) {
+            
+            ListIterator<Enrollement> itr = enrollments.listIterator();
+            
+            Enrollement tmpEnrol;
+            while (itr.hasNext()) {
+                tmpEnrol = itr.next();
+                if(tmpEnrol.m_Semester.equals(semester)){
+                    courseStatistics(tmpEnrol.m_Courses);
+                }
+            }                
+
+            
+        }
+        
+        public void courseStatistics() {            
+            ListIterator<Semester> itr = semesters.listIterator();
+                        
+            while (itr.hasNext()) {
+                courseStatistics(itr.next());
+                
+            }                            
+        }
+
 
 	public CourseController(){
 
