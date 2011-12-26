@@ -228,18 +228,31 @@ public class CourseController {
             return semesters.add(semester);            
         }
         
-        public void courseStatistics(Course course) {
-            ListIterator<Enrollement> itr = course.enrollments.listIterator();
-            
+        public CourseStatistics rawCourseStatistics(LinkedList<Enrollement> enrollments){
+            ListIterator<Enrollement> itr = enrollments.listIterator();
+            CourseStatistics courseStatistics = new CourseStatistics();
+            Enrollement tmpEnrol;
             int suc = 0, fail = 0;
             if(itr.hasNext()) {
-                if(itr.next().getMark() > 60)
+                tmpEnrol = itr.next();
+                if(tmpEnrol.getMark() > 60){
                     suc++;
-                else
-                    fail++;
-                  
+                    courseStatistics.passedStudents.add(tmpEnrol.m_Student);
+                }
+                else {
+                    fail++;                
+                    courseStatistics.failedStudents.add(tmpEnrol.m_Student);
+                }
                     
             }
+            
+            courseStatistics.setPassRate(((double)suc)/(suc+fail));
+            
+            return courseStatistics;
+        }
+        
+        public CourseStatistics courseStatistics(Course course) {
+            return rawCourseStatistics(course.enrollments);
         }
         
         public void courseStatistics(Semester semester) {
@@ -265,6 +278,8 @@ public class CourseController {
                 
             }                            
         }
+        
+
 
 
 	public CourseController(){
